@@ -24,6 +24,7 @@ const input2pm = $("#2PM");
 const input3pm = $("#3PM");
 const input4pm = $("#4PM");
 const input5pm = $("#5PM");
+//adding all the elements needed from the DOM
 
 const inputs = [
     input9am,
@@ -49,17 +50,13 @@ time3pm,
 time4pm,
 time5pm
 ];
+//creating arrays for the needed DOM elements
 
-
-
-
-
-//setting up all the elements
 
 currentDay.text(moment().format("dddd, MMMM Do"))
 localStorage.setItem("todayIs", resetDay);
 
-//sets the current day and month at the top of the page
+//sets the current day and month at the top of the page, and saves what day it is into localStorage
 
 function setBackground() {
 
@@ -75,37 +72,35 @@ for (var i = currentHour; i < 18; i++){
     timeBlocks[currentBlock].removeClass("future");
 timeBlocks[currentBlock].addClass("present");
 };
+//changes the classes of the timeblocks according to the current hour
 
 function hasHourChanged(){
     if(currentHour != moment().format("H")){
         setBackground;
     };
-
     if(resetDay != moment().format("d")){
         localStorage.clear();
         location.reload();
-    }
-}
-
-setInterval(hasHourChanged,1000)
-
-
-
-$("i").on("click", function saveValues(event){
-    // console.log(inputs[event.target.id].val());
-    var x = parseInt(event.target.id);
-    console.log(inputs[x].val());
-    localStorage.setItem(x, inputs[x].val())
-});
+}}
+//checks if either the day or hour has changed. if so, will update the page accordingly (resets storage on new day)
 
 function addLocalStorage(){
     for (var i = 0; i < 8; i++){
 inputs[i].val(localStorage.getItem(i));
+}};
+//adds the values stored in local storage to the pages input fields
 
-    }
+setInterval(hasHourChanged,1000)
+// each second, checks if either the day or hour has changed. if so, will update the page accordingly (resets storage on new day)
 
-};
+
+$("i").on("click", function saveValues(event){
+    var x = parseInt(event.target.id);
+    localStorage.setItem(x, inputs[x].val())
+});
+//on clicking the save icon, saves the ajacents inputs field to localstorage
 
 
 setBackground();
 addLocalStorage();
+//sets background and input fields on page load
