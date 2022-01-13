@@ -3,6 +3,7 @@ const currentDay = $("#currentDay");
 const saveBtn = $(".material-icons saveBtn");
 
 const currentHour = moment().format("H");
+const resetDay = moment().format("d");
 
 const time9am = $("#9am-container");
 const time10am = $("#10am-container");
@@ -56,6 +57,7 @@ time5pm
 //setting up all the elements
 
 currentDay.text(moment().format("dddd, MMMM Do"))
+localStorage.setItem("todayIs", resetDay);
 
 //sets the current day and month at the top of the page
 
@@ -73,6 +75,19 @@ for (var i = currentHour; i < 18; i++){
     timeBlocks[currentBlock].removeClass("future");
 timeBlocks[currentBlock].addClass("present");
 };
+
+function hasHourChanged(){
+    if(currentHour != moment().format("H")){
+        setBackground;
+    };
+
+    if(resetDay != moment().format("d")){
+        localStorage.clear();
+        location.reload();
+    }
+}
+
+setInterval(hasHourChanged,1000)
 
 
 
