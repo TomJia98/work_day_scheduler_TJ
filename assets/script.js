@@ -2,8 +2,7 @@ const currentDay = $("#currentDay");
 
 const saveBtn = $(".material-icons saveBtn");
 
-const currentHour = moment().format("H")-9;
-var test =document.getElementById("9am");
+const currentHour = moment().format("H");
 
 const time9am = $("#9am-container");
 const time10am = $("#10am-container");
@@ -15,15 +14,15 @@ const time3pm = $("#3pm-container");
 const time4pm = $("#4pm-container");
 const time5pm = $("#5pm-container");
 
-const input9am = $("#9am");
-const input10am = $("#10am");
-const input11am = $("#11am");
-const input12am = $("#12am");
-const input1pm = $("#1pm");
-const input2pm = $("#2pm");
-const input3pm = $("#3pm");
-const input4pm = $("#4pm");
-const input5pm = $("#5pm");
+const input9am = $("#9AM");
+const input10am = $("#10AM");
+const input11am = $("#11AM");
+const input12am = $("#12AM");
+const input1pm = $("#1PM");
+const input2pm = $("#2PM");
+const input3pm = $("#3PM");
+const input4pm = $("#4PM");
+const input5pm = $("#5PM");
 
 const inputs = [
     input9am,
@@ -64,15 +63,15 @@ function setBackground() {
 
     for (var i = 9; i < currentHour ; i++){
         var o = i - 9;
-        timeBlocks[o].attr("class", "past");
+        timeBlocks[o].addClass("past");
 }
 for (var i = currentHour; i < 18; i++){
     var o = i - 9;
-    timeBlocks[o].attr("class", "future");
+    timeBlocks[o].addClass("future");
 }
     var currentBlock = currentHour - 9;
-    timeBlocks[currentBlock].removeAttr("class");
-timeBlocks[currentBlock].attr("class", "present");
+    timeBlocks[currentBlock].removeClass("future");
+timeBlocks[currentBlock].addClass("present");
 };
 
 
@@ -80,11 +79,18 @@ timeBlocks[currentBlock].attr("class", "present");
 $("i").on("click", function saveValues(event){
     // console.log(inputs[event.target.id].val());
     var x = parseInt(event.target.id);
-    console.log(typeof(parseInt(x)));
-    console.log(test.value);
-    
+    console.log(inputs[x].val());
+    localStorage.setItem(x, inputs[x].val())
 });
 
+function addLocalStorage(){
+    for (var i = 0; i < 8; i++){
+inputs[i].val(localStorage.getItem(i));
 
-console.log(currentHour);
+    }
+
+};
+
+
 setBackground();
+addLocalStorage();
