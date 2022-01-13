@@ -41,14 +41,14 @@ const inputs = [
 
 const timeBlocks = [
     time9am,
-time10am,
-time11am,
-time12am,
-time1pm,
-time2pm,
-time3pm,
-time4pm,
-time5pm
+    time10am,
+    time11am,
+    time12am,
+    time1pm,
+    time2pm,
+    time3pm,
+    time4pm,
+    time5pm
 ];
 //creating arrays for the needed DOM elements
 
@@ -85,7 +85,7 @@ function hasHourChanged(){
 //checks if either the day or hour has changed. if so, will update the page accordingly (resets storage on new day)
 
 function addLocalStorage(){
-    for (var i = 0; i < 8; i++){
+    for (var i = 0; i < 9; i++){
 inputs[i].val(localStorage.getItem(i));
 }};
 //adds the values stored in local storage to the pages input fields
