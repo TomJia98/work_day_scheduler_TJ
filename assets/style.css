@@ -88,3 +88,18 @@ input {
   background-color: #098eac;
   cursor: pointer;
 }
+
+#clear-local {
+  display: flex;
+  align-items: center;
+  background-color: #06aed5;
+  margin: auto;
+  border: none;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+#clear-local:hover {
+  background-color: #098eac;
+  transition: all 0.3s ease-in-out;
+}

@@ -1,8 +1,9 @@
+
 const currentDay = $("#currentDay");
 
 const saveBtn = $(".material-icons saveBtn");
 
-const currentHour = moment().format("H");
+const currentHour = parseInt(moment().format("H"));
 const resetDay = moment().format("d");
 
 const time9am = $("#9am-container");
@@ -59,11 +60,12 @@ localStorage.setItem("todayIs", resetDay);
 //sets the current day and month at the top of the page, and saves what day it is into localStorage
 
 function setBackground() {
-
+if (currentHour < 18){
     for (var i = 9; i < currentHour ; i++){
         var o = i - 9;
         timeBlocks[o].addClass("past");
-}
+        }
+
 for (var i = currentHour; i < 18; i++){
     var o = i - 9;
     timeBlocks[o].addClass("future");
@@ -71,17 +73,21 @@ for (var i = currentHour; i < 18; i++){
     var currentBlock = currentHour - 9;
     timeBlocks[currentBlock].removeClass("future");
 timeBlocks[currentBlock].addClass("present");
-};
+} else{
+    for (var i = 0; i < 9; i++){
+        timeBlocks[i].addClass("past");
+    }
+}}
 //changes the classes of the timeblocks according to the current hour
 
 function hasHourChanged(){
-    if(currentHour != moment().format("H")){
+    if(currentHour != parseInt(moment().format("H"))){
         setBackground;
     };
-    if(resetDay != moment().format("d")){
+    if(localStorage.getItem("todayIs") != moment().format("d")){
         localStorage.clear();
         location.reload();
-}}
+}};
 //checks if either the day or hour has changed. if so, will update the page accordingly (resets storage on new day)
 
 function addLocalStorage(){
@@ -90,17 +96,24 @@ inputs[i].val(localStorage.getItem(i));
 }};
 //adds the values stored in local storage to the pages input fields
 
-setInterval(hasHourChanged,1000)
-// each second, checks if either the day or hour has changed. if so, will update the page accordingly (resets storage on new day)
-
 
 $("i").on("click", function saveValues(event){
     var x = parseInt(event.target.id);
-    localStorage.setItem(x, inputs[x].val())
+    localStorage.setItem(x, inputs[x].val());
+    
 });
 //on clicking the save icon, saves the ajacents inputs field to localstorage
 
+$("#clear-local").on("click", function(){
+
+    localStorage.clear();
+    location.reload();
+});
+//clears the data on clicking the reset button
 
 setBackground();
 addLocalStorage();
 //sets background and input fields on page load
+
+setInterval(hasHourChanged,1000);
+// each second, checks if either the day or hour has changed. if so, will update the page accordingly (resets storage on new day)
